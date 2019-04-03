@@ -1,8 +1,5 @@
 from itertools import groupby
 
-print("Hello world")
-
-# define Student class
 class Student:
   def __init__(self, lastname, firstname, grade, classroom, bus, gpa,
       tlastname, tfirstname):
@@ -20,47 +17,31 @@ class Student:
                             str(self.classroom), str(self.bus), str(self.gpa), 
                             self.tlastname, self.tfirstname]) + ")"
 
-# parse students.txt into a list of Student objects
-try:
-  file = open("students.txt")
-  # TODO: check if line is in the correct format
-  students = [Student(*line.rstrip().split(",")) for line in file]
-  file.close()
-except FileNotFoundError:
-  print("students.txt does not exist")
-  exit(1)
+# groups by given key
+def group(lst, keyfunc):
+  sorted_lst = sorted(lst, key=keyfunc)
+  return dict((k, list(v)) for k, v in groupby(sorted_lst, key=keyfunc))
 
-# define getters
-get_lastname = lambda s: s.lastname
-get_tlastname = lambda s: s.tlastname
-get_bus = lambda s: s.bus
-get_grade = lambda s: s.grade
+# parses a file into a list of Student objects
+def parse_file(filename):
+  try:
+    file = open(filename)
+    # TODO: check if line is in the correct format. exit program if incorrect
+    students = [Student(*line.rstrip().split(",")) for line in file]
+    file.close()
+    return students 
 
-# sort list of students by last name
-sorted_by_lastname = sorted(students, key=get_lastname)
+  except FileNotFoundError:
+    print("students.txt does not exist")
+    exit(1)
 
-# group sorted list by last name and store as dictionary
-grouped_by_lastname = \
-  dict((k, list(v)) for k, v in groupby(sorted_by_lastname, key=get_lastname))
+def main():
+  students = parse_file("students.txt")
+  grouped_by_lastname = group(students, lambda s: s.lastname)
+  grouped_by_tlastname = group(students, lambda s: s.tlastname)
+  grouped_by_bus = group(students, lambda s: s.bus)
+  grouped_by_grade = group(students, lambda s: s.grade)
+  print(grouped_by_lastname)
 
-# sort list of students by their teacher's last name
-sorted_by_tlastname = sorted(students, key=get_tlastname)
-
-# group sorted list by teacher's last name and store as dictionary
-grouped_by_tlastname = \
-  dict((k, list(v)) for k, v in groupby(sorted_by_tlastname, key=get_tlastname))
-
-# sort list of students by bus route
-sorted_by_bus = sorted(students, key=get_bus)
-
-# group sorted list by bus route and store as dictionary
-grouped_by_bus = \
-  dict((k, list(v)) for k, v in groupby(sorted_by_bus, key=get_bus))
-
-# sort list of students by grade level
-sorted_by_grade = sorted(students, key=get_grade)
-
-# sort list of student by grade level and store as dictionary
-grouped_by_grade = \
-  dict((k, list(v)) for k, v in groupby(sorted_by_grade, key=get_grade))
-
+if __name__ == "__main__":
+  main()
