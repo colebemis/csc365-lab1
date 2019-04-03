@@ -37,11 +37,17 @@ def parse_file(filename):
 
 def main():
   students = parse_file("students.txt")
+
   grouped_by_lastname = group(students, lambda s: s.lastname)
   grouped_by_tlastname = group(students, lambda s: s.tlastname)
   grouped_by_bus = group(students, lambda s: s.bus)
   grouped_by_grade = group(students, lambda s: s.grade)
-  print(grouped_by_lastname)
+
+  while True:
+    query = input("Enter query: ")
+
+    if query == "q":
+      break
 
 if __name__ == "__main__":
   main()
