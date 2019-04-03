@@ -43,15 +43,24 @@ sorted_by_lastname = sorted(students, key=get_lastname)
 grouped_by_lastname = \
   dict((k, list(v)) for k, v in groupby(sorted_by_lastname, key=get_lastname))
 
-print(grouped_by_lastname)
-
 # sort list of students by their teacher's last name
+sorted_by_tlastname = sorted(students, key=get_tlastname)
+
 # group sorted list by teacher's last name and store as dictionary
+grouped_by_tlastname = \
+  dict((k, list(v)) for k, v in groupby(sorted_by_tlastname, key=get_tlastname))
 
 # sort list of students by bus route
-# groupd sorted list by bus route and store as dictionary
+sorted_by_bus = sorted(students, key=get_bus)
+
+# group sorted list by bus route and store as dictionary
+grouped_by_bus = \
+  dict((k, list(v)) for k, v in groupby(sorted_by_bus, key=get_bus))
 
 # sort list of students by grade level
-# sort list of student by grade level and store as dictionary
+sorted_by_grade = sorted(students, key=get_grade)
 
+# sort list of student by grade level and store as dictionary
+grouped_by_grade = \
+  dict((k, list(v)) for k, v in groupby(sorted_by_grade, key=get_grade))
 
