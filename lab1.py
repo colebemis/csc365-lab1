@@ -35,6 +35,28 @@ def parse_file(filename):
     print("students.txt does not exist")
     exit(1)
 
+def find_by_lastname(lastname, grouped_by_lastname):
+  students = grouped_by_lastname[lastname]
+  for student in students:
+    print(", ".join([student.lastname, student.firstname, str(student.grade),
+                     str(student.classroom), student.tlastname, student.tfirstname]))
+
+def find_by_lastname_bus(lastname, grouped_by_lastname):
+  students = grouped_by_lastname[lastname]
+  for student in students:
+    print(", ".join([student.lastname, student.firstname, str(student.bus)]))
+
+def find_by_tlastname(tlastname, grouped_by_tlastname):
+  students = grouped_by_tlastname[tlastname]
+  for student in students:
+    print(", ".join([student.lastname, student.firstname]))
+
+def find_by_bus(bus, grouped_by_bus):
+  students = grouped_by_bus[bus]
+  for student in students:
+    print(", ".join([student.lastname, student.firstname, str(student.grade),
+                     str(student.classroom)]))
+
 def main():
   students = parse_file("students.txt")
 
@@ -42,6 +64,11 @@ def main():
   grouped_by_tlastname = group(students, lambda s: s.tlastname)
   grouped_by_bus = group(students, lambda s: s.bus)
   grouped_by_grade = group(students, lambda s: s.grade)
+
+  find_by_lastname("NOVICK", grouped_by_lastname)
+  find_by_lastname_bus("NOVICK", grouped_by_lastname)
+  find_by_tlastname("BODZIONY", grouped_by_tlastname)
+  find_by_bus("51", grouped_by_bus)
 
   while True:
     query = input("Enter query: ")
