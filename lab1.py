@@ -67,14 +67,14 @@ def parse_cmd(cmd, data):
   elif first_word == "grade" or first_word == "g":
     if query_length == 2:
         print("Querying grade {}".format(cmd_words[1]))
-        find_by_grade(cmd_words[1], data["grade"])
+        return find_by_grade(cmd_words[1], data["grade"])
     elif query_length == 3:
         if third_word == "high" or third_word == "h":
             print("Querying highest GPA in grade {}".format(cmd_words[1]))
-            find_by_grade_gpa_high(cmd_words[1], data["grade"])
+            return find_by_grade_high(cmd_words[1], data["grade"])
         elif third_word == "low" or third_word == "l":
             print("Querying lowest GPA in grade {}".format(cmd_words[1]))
-            find_by_grade_gpa_low(cmd_words[1], data["grade"])
+            find_by_grade_low(cmd_words[1], data["grade"])
 
   elif first_word == "average" or first_word == "a":
       print("Querying the average GPA for grade {}".format(cmd_words[1]))
@@ -86,6 +86,7 @@ def parse_cmd(cmd, data):
 
   else:
     print("Unrecognized query format")
+
 
 def find_by_lastname(lastname, grouped_by_lastname):
   students = grouped_by_lastname[lastname]
@@ -109,25 +110,28 @@ def find_by_bus(bus, grouped_by_bus):
     print(", ".join([student.lastname, student.firstname, str(student.grade),
                      str(student.classroom)]))
 
-# ===================================
-# @tanner:
-#   feel free to change all these function names
-#   i added the skeletons just so i could call them from the parser
-def find_by_grade(grade, grouped_by_grade):
-  print("find_by_grade implementation pending")
+def find_by_grade(grd, grouped_by_grade):
+  return grouped_by_grade.get(grd)
 
-def find_by_grade_gpa_high(grade, grouped_by_grade):
-  print("find_by_grade_gpa_high implementation pending")
+def find_by_grade_high(grd, grouped_by_grade):
+  merged = []
+  for i in range(int(grd) + 1):
+    temp = grouped_by_grade.get(str(i))
+    if temp != None:
+      merged += temp
+  return merged
 
-def find_by_grade_gpa_low(grade, grouped_by_grade):
-  print("find_by_grade_gpa_low implementation pending")
+def find_by_grade_low(grd, grouped_by_grade):
+  return
 
-def find_by_grade_gpa_avg(grade, grouped_by_grade):
-  print("find_by_grade_gpa_low implementation pending")
+def find_by_grade_gpa_avg(grd, grouped_by_grade):
+  return
 
 def summarize_by_grade(grouped_by_grade):
-  print("summarize_by_grade implementation pending")
-# ===================================
+  return
+
+def info():
+  return
 
 def main():
   students = parse_file("students.txt")
@@ -149,7 +153,7 @@ def main():
     if query_lower == "q" or query_lower == "quit":
       break
     else:
-      parse_cmd(query, data)
+      print(parse_cmd(query, data))
 
 
 if __name__ == "__main__":
