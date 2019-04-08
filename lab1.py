@@ -98,22 +98,34 @@ def parse_cmd(cmd, data):
 
 
 def find_by_lastname(lastname, grouped_by_lastname):
+  if not lastname in grouped_by_lastname:
+    return 
+
   students = grouped_by_lastname[lastname]
   for student in students:
     print(", ".join([student.lastname, student.firstname, str(student.grade),
                      str(student.classroom), student.tlastname, student.tfirstname]))
 
 def find_by_lastname_bus(lastname, grouped_by_lastname):
+  if not lastname in grouped_by_lastname:
+    return
+
   students = grouped_by_lastname[lastname]
   for student in students:
     print(", ".join([student.lastname, student.firstname, str(student.bus)]))
 
 def find_by_tlastname(tlastname, grouped_by_tlastname):
+  if not tlastname in grouped_by_tlastname:
+    return 
+
   students = grouped_by_tlastname[tlastname]
   for student in students:
     print(", ".join([student.lastname, student.firstname]))
 
 def find_by_bus(bus, grouped_by_bus):
+  if not bus in grouped_by_bus:
+    return
+
   students = grouped_by_bus[bus]
   for student in students:
     print(", ".join([student.lastname, student.firstname, str(student.grade),
