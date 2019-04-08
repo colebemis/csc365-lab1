@@ -61,7 +61,7 @@ def parse_cmd(cmd, data):
       print("Querying student {} with bus info".format(cmd_words[1]))
       find_by_lastname_bus(cmd_words[1], data["lastname"])
     else:
-      print("Unrecognized query.", err_msg)
+      print("Unrecognized command.", err_msg)
 
   elif first_word == "teacher" or first_word == "t":
     print("Querying teacher {}".format(cmd_words[1]))
@@ -83,7 +83,7 @@ def parse_cmd(cmd, data):
             print("Querying lowest GPA in grade {}".format(cmd_words[1]))
             find_by_grade_low(cmd_words[1], data["grade"])
         else:
-          print("Unrecognized query.", err_msg)
+          print("Unrecognized command.", err_msg)
 
   elif first_word == "average" or first_word == "a":
       print("Querying the average GPA for grade {}".format(cmd_words[1]))
@@ -94,7 +94,7 @@ def parse_cmd(cmd, data):
     summarize_by_grade(data["grade"])
 
   else:
-    print("Unrecognized query.", err_msg)
+    print("Unrecognized command.", err_msg)
 
 
 def find_by_lastname(lastname, grouped_by_lastname):
