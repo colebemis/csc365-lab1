@@ -183,7 +183,7 @@ def summarize_by_grade(grouped_by_grade):
       print(i, ": ", 0)
 
 def main():
-  students = parse_file("students.txt")
+  students = parse_file("../students.txt")
 
   grouped_by_lastname = group(students, lambda s: s.lastname)
   grouped_by_tlastname = group(students, lambda s: s.tlastname)
