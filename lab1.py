@@ -37,8 +37,15 @@ def parse_file(filename):
 
 # parses the command and calls the appropriate function
 # note: quitting out of the program is handled in the main loop
-# TODO: add more comprehensive error menu messages
 def parse_cmd(cmd, data):
+  err_msg = "Possible commands:\n" \
+            "- S[tudent]: <lastname> [B[us]]\n" \
+            "- T[eacher]: <lastname>\n" \
+            "- B[us]: <number>\n" \
+            "- G[rade]: <number> [H[igh]|L[ow]]\n" \
+            "- A[verage]: <number>\n" \
+            "- I[nfo]\n" \
+            "- Q[uit]"
   cmd_words = cmd.split()
 
   query_length = len(cmd_words)
@@ -54,7 +61,7 @@ def parse_cmd(cmd, data):
       print("Querying student {} with bus info".format(cmd_words[1]))
       find_by_lastname_bus(cmd_words[1], data["lastname"])
     else:
-      print("Malformatted student query")
+      print("Unrecognized command.", err_msg)
 
   elif first_word == "teacher" or first_word == "t":
     print("Querying teacher {}".format(cmd_words[1]))
@@ -74,7 +81,9 @@ def parse_cmd(cmd, data):
             find_by_grade_gpa_high(cmd_words[1], data["grade"])
         elif third_word == "low" or third_word == "l":
             print("Querying lowest GPA in grade {}".format(cmd_words[1]))
-            find_by_grade_gpa_low(cmd_words[1], data["grade"])
+            find_by_grade_low(cmd_words[1], data["grade"])
+        else:
+          print("Unrecognized command.", err_msg)
 
   elif first_word == "average" or first_word == "a":
       print("Querying the average GPA for grade {}".format(cmd_words[1]))
@@ -85,26 +94,38 @@ def parse_cmd(cmd, data):
     summarize_by_grade(data["grade"])
 
   else:
-    print("Unrecognized query format")
+    print("Unrecognized command.", err_msg)
 
 
 def find_by_lastname(lastname, grouped_by_lastname):
+  if not lastname in grouped_by_lastname:
+    return
+
   students = grouped_by_lastname[lastname]
   for student in students:
     print(", ".join([student.lastname, student.firstname, str(student.grade),
                      str(student.classroom), student.tlastname, student.tfirstname]))
 
 def find_by_lastname_bus(lastname, grouped_by_lastname):
+  if not lastname in grouped_by_lastname:
+    return
+
   students = grouped_by_lastname[lastname]
   for student in students:
     print(", ".join([student.lastname, student.firstname, str(student.bus)]))
 
 def find_by_tlastname(tlastname, grouped_by_tlastname):
+  if not tlastname in grouped_by_tlastname:
+    return
+
   students = grouped_by_tlastname[tlastname]
   for student in students:
     print(", ".join([student.lastname, student.firstname]))
 
 def find_by_bus(bus, grouped_by_bus):
+  if not bus in grouped_by_bus:
+    return
+
   students = grouped_by_bus[bus]
   for student in students:
     print(", ".join([student.lastname, student.firstname, str(student.grade),
