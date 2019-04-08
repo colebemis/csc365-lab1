@@ -67,14 +67,14 @@ def parse_cmd(cmd, data):
   elif first_word == "grade" or first_word == "g":
     if query_length == 2:
         print("Querying grade {}".format(cmd_words[1]))
-        return find_by_grade(cmd_words[1], data["grade"])
+        find_by_grade(cmd_words[1], data["grade"])
     elif query_length == 3:
         if third_word == "high" or third_word == "h":
             print("Querying highest GPA in grade {}".format(cmd_words[1]))
-            return find_by_grade_high(cmd_words[1], data["grade"])
+            find_by_grade_gpa_high(cmd_words[1], data["grade"])
         elif third_word == "low" or third_word == "l":
             print("Querying lowest GPA in grade {}".format(cmd_words[1]))
-            find_by_grade_low(cmd_words[1], data["grade"])
+            find_by_grade_gpa_low(cmd_words[1], data["grade"])
 
   elif first_word == "average" or first_word == "a":
       print("Querying the average GPA for grade {}".format(cmd_words[1]))
@@ -111,27 +111,47 @@ def find_by_bus(bus, grouped_by_bus):
                      str(student.classroom)]))
 
 def find_by_grade(grd, grouped_by_grade):
-  return grouped_by_grade.get(grd)
+  if (grd in grouped_by_grade.keys()):
+    students = grouped_by_grade[grd]
+    for student in students:
+      print(", ".join([student.lastname, student.firstname, str(student.gpa),
+                       str(student.tlastname), str(student.tfirstname), str(student.bus)]))
 
-def find_by_grade_high(grd, grouped_by_grade):
-  merged = []
-  for i in range(int(grd) + 1):
-    temp = grouped_by_grade.get(str(i))
-    if temp != None:
-      merged += temp
-  return merged
+def find_by_grade_gpa_high(grd, grouped_by_grade):
+  if (grd in grouped_by_grade.keys()):
+    students = grouped_by_grade[grd]
+    best_student = students[0]
+    for student in students:
+      if student.gpa > best_student.gpa:
+        best_student = student
+    print(", ".join([best_student.lastname, best_student.firstname, str(best_student.gpa),
+                    str(best_student.tlastname), str(student.tfirstname), str(student.bus)]))
 
-def find_by_grade_low(grd, grouped_by_grade):
-  return
+def find_by_grade_gpa_low(grd, grouped_by_grade):
+  if (grd in grouped_by_grade.keys()):
+    students = grouped_by_grade[grd]
+    worst_student = students[0]
+    for student in students:
+      if student.gpa < worst_student.gpa:
+        worst_student = student
+    print(", ".join([worst_student.lastname, worst_student.firstname, str(worst_student.gpa),
+                    str(worst_student.tlastname), str(worst_student.tfirstname), str(worst_student.bus)]))
 
 def find_by_grade_gpa_avg(grd, grouped_by_grade):
-  return
+  if (grd in grouped_by_grade.keys()):
+    students = grouped_by_grade[grd]
+    sum_gpa = 0
+    for student in students:
+      sum_gpa += float(student.gpa)
+    print(sum_gpa/len(students))
 
 def summarize_by_grade(grouped_by_grade):
-  return
-
-def info():
-  return
+  for i in range(7):
+    if(str(i) in grouped_by_grade.keys()):
+      students = grouped_by_grade[str(i)]
+      print(i, ": ", len(students))
+    else:
+      print(i, ": ", 0)
 
 def main():
   students = parse_file("students.txt")
@@ -153,7 +173,7 @@ def main():
     if query_lower == "q" or query_lower == "quit":
       break
     else:
-      print(parse_cmd(query, data))
+      parse_cmd(query, data)
 
 
 if __name__ == "__main__":
