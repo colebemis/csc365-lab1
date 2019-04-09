@@ -1,4 +1,5 @@
 from itertools import groupby
+import os
 
 class Student:
   def __init__(self, lastname, firstname, grade, classroom, bus, gpa,
@@ -32,7 +33,7 @@ def parse_file(filename):
     return students 
 
   except FileNotFoundError:
-    print("students.txt does not exist")
+    print(filename + " does not exist")
     exit(1)
 
 # parses the command and calls the appropriate function
