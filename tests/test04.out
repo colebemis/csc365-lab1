@@ -1,3 +1,9 @@
-Enter query: Querying lowest GPA in grade 1
-SAELEE, DANILO, 2.85, FALKER, ADOLPH, 54
+Enter query: Unrecognized command. Possible commands:
+- S[tudent]: <lastname> [B[us]]
+- T[eacher]: <lastname>
+- B[us]: <number>
+- G[rade]: <number> [H[igh]|L[ow]]
+- A[verage]: <number>
+- I[nfo]
+- Q[uit]
 Enter query: 

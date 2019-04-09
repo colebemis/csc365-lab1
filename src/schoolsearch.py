@@ -39,7 +39,7 @@ def parse_file(filename):
 # parses the command and calls the appropriate function
 # note: quitting out of the program is handled in the main loop
 def parse_cmd(cmd, data):
-  err_msg = "Possible commands:\n" \
+  err_msg = "Unrecognized command. Possible commands:\n" \
             "- S[tudent]: <lastname> [B[us]]\n" \
             "- T[eacher]: <lastname>\n" \
             "- B[us]: <number>\n" \
@@ -54,48 +54,50 @@ def parse_cmd(cmd, data):
   if query_length > 2:
     third_word = cmd_words[2].lower()
 
-  if (first_word == "student" or first_word == "s") and len(cmd):
+  if first_word == "student" or first_word == "s":
     if query_length == 2:
-      print("Querying student with last name {}".format(cmd_words[1]))
+      # print("Querying student with last name {}".format(cmd_words[1]))
       find_by_lastname(cmd_words[1], data["lastname"])
     elif query_length == 3 and (third_word == "b" or third_word == "bus"):
-      print("Querying student {} with bus info".format(cmd_words[1]))
+      # print("Querying student {} with bus info".format(cmd_words[1]))
       find_by_lastname_bus(cmd_words[1], data["lastname"])
     else:
-      print("Unrecognized command.", err_msg)
+      print(err_msg)
 
-  elif first_word == "teacher" or first_word == "t":
-    print("Querying teacher {}".format(cmd_words[1]))
+  elif (first_word == "teacher" or first_word == "t") and query_length == 2:
+    # print("Querying teacher {}".format(cmd_words[1]))
     find_by_tlastname(cmd_words[1], data["tlastname"])
 
-  elif first_word == "bus" or first_word == "b":
-    print("Querying bus {}".format(cmd_words[1]))
+  elif (first_word == "bus" or first_word == "b") and query_length == 2:
+    # print("Querying bus {}".format(cmd_words[1]))
     find_by_bus(cmd_words[1], data["bus"])
 
   elif first_word == "grade" or first_word == "g":
     if query_length == 2:
-        print("Querying grade {}".format(cmd_words[1]))
+        # print("Querying grade {}".format(cmd_words[1]))
         find_by_grade(cmd_words[1], data["grade"])
     elif query_length == 3:
         if third_word == "high" or third_word == "h":
-            print("Querying highest GPA in grade {}".format(cmd_words[1]))
+            # print("Querying highest GPA in grade {}".format(cmd_words[1]))
             find_by_grade_gpa_high(cmd_words[1], data["grade"])
         elif third_word == "low" or third_word == "l":
-            print("Querying lowest GPA in grade {}".format(cmd_words[1]))
+            # print("Querying lowest GPA in grade {}".format(cmd_words[1]))
             find_by_grade_gpa_low(cmd_words[1], data["grade"])
         else:
-          print("Unrecognized command.", err_msg)
+          print(err_msg)
+    else:
+      print(err_msg)
 
-  elif first_word == "average" or first_word == "a":
-      print("Querying the average GPA for grade {}".format(cmd_words[1]))
+  elif (first_word == "average" or first_word == "a") and query_length == 2:
+      # print("Querying the average GPA for grade {}".format(cmd_words[1]))
       find_by_grade_gpa_avg(cmd_words[1], data["grade"])
 
-  elif first_word == "info" or first_word == "i":
-    print("Querying info summary")
+  elif (first_word == "info" or first_word == "i") and query_length == 1:
+    # print("Querying info summary")
     summarize_by_grade(data["grade"])
 
   else:
-    print("Unrecognized command.", err_msg)
+    print(err_msg)
 
 
 def find_by_lastname(lastname, grouped_by_lastname):

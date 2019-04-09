@@ -7,5 +7,5 @@
 for test_input in *.in; do
   name=${test_input%.in}
 
-  python3 ../src/lab1.py < $test_input > $name.expect
+  python3 ../src/schoolsearch.py < $test_input > $name.expect
 done

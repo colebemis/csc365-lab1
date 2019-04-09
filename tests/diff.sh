@@ -5,7 +5,7 @@ for test_input in *.in; do
    name=${test_input%.in}
 
    # run the test
-   python3 ../src/lab1.py < $test_input 1> $name.out
+   python3 ../src/schoolsearch.py < $test_input 1> $name.out
 
    # diff the results
    diff -q $name.out $name.expect
