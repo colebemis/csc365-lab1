@@ -27,7 +27,6 @@ def group(lst, keyfunc):
 def parse_file(filename):
   try:
     file = open(filename)
-    # TODO: check if line is in the correct format. exit program if incorrect
     students = [Student(*line.rstrip().split(",")) for line in file]
     file.close()
     return students 
