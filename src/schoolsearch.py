@@ -139,8 +139,7 @@ def find_by_grade(grd, grouped_by_grade):
 
   students = grouped_by_grade[grd]
   for student in students:
-    print(", ".join([student.lastname, student.firstname, str(student.gpa),
-                     str(student.tlastname), str(student.tfirstname), str(student.bus)]))
+    print(", ".join([student.lastname, student.firstname]))
 
 def find_by_grade_gpa_high(grd, grouped_by_grade):
   if not grd in grouped_by_grade:
@@ -180,9 +179,9 @@ def summarize_by_grade(grouped_by_grade):
   for i in range(7):
     if str(i) in grouped_by_grade:
       students = grouped_by_grade[str(i)]
-      print(i, ": ", len(students))
+      print("%d: %d" % (i, len(students)))
     else:
-      print(i, ": ", 0)
+      print("%d: 0" % (i))
 
 def main():
   students = parse_file("../students.txt")
