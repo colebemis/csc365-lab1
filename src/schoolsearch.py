@@ -61,9 +61,12 @@ def parse_cmd(cmd, data):
             "- S[tudent]: <lastname> [B[us]]\n" \
             "- T[eacher]: <lastname>\n" \
             "- B[us]: <number>\n" \
-            "- G[rade]: <number> [H[igh]|L[ow]]\n" \
+            "- G[rade]: <number> [H[igh]|L[ow]|T[eacher]]\n" \
+            "- C[lassroom]: <number> [T[eacher]]\n" \
             "- A[verage]: <number>\n" \
             "- I[nfo]\n" \
+            "- E[nrollment]\n" \
+            "- R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]\n" \
             "- Q[uit]"
   cmd_words = cmd.split()
 
@@ -92,19 +95,30 @@ def parse_cmd(cmd, data):
 
   elif first_word == "grade" or first_word == "g":
     if query_length == 2:
-        # G[rade]: <number>
-        find_by_grade(cmd_words[1], data)
+      # G[rade]: <number>
+      find_by_grade(cmd_words[1], data)
     elif query_length == 3:
-        if third_word == "high" or third_word == "h":
-            # G[rade]: <number> H[igh]
-            find_by_grade_gpa_high(cmd_words[1], data)
-        elif third_word == "low" or third_word == "l":
-            # G[rade]: <number> L[ow]
-            find_by_grade_gpa_low(cmd_words[1], data)
-        else:
-          print(err_msg)
+      if third_word == "high" or third_word == "h":
+        # G[rade]: <number> H[igh]
+        find_by_grade_gpa_high(cmd_words[1], data)
+      elif third_word == "low" or third_word == "l":
+        # G[rade]: <number> L[ow]
+        find_by_grade_gpa_low(cmd_words[1], data)
+      elif third_word == "teacher" or third_word == "t":
+        print("G[rade]: <number> T[eacher]")   
+        # find_by_grade_teacher(cmd_words[1], data)
+      else:
+        print(err_msg)
     else:
       print(err_msg)
+
+  elif first_word == "classroom" or first_word == "c":
+    if query_length == 2:
+      print("C[lassroom]: <number>")
+      # find_by_classroom(cmd_words[1], data)
+    elif query_length == 3 and (third_word == "teacher" or third_word == "t"):
+      print("C[lassroom]: <number> T[eacher]")
+      # find_by_classroom_teacher(cmd_words[1], data)
 
   elif (first_word == "average" or first_word == "a") and query_length == 2:
       # A[verage]: <number>
@@ -113,6 +127,24 @@ def parse_cmd(cmd, data):
   elif (first_word == "info" or first_word == "i") and query_length == 1:
     # I[nfo]
     summarize_by_grade(data)
+
+  elif (first_word == "enrollment" or first_word == "e") and query_length == 1:
+    print("E[nrollment]")
+    # enrollment(data)
+
+  elif (first_word == "raw" or first_word == "r") and 1 <= query_length <= 4 :
+   try:
+     filters = dict(map(lambda x: x.split("="), cmd_words[1:]))
+
+     for key in filters.keys():
+       if key.lower() not in ["grade", "bus", "teacher"]:
+         raise Exception()
+     
+     print("R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]")
+     print(filters)
+     # raw(filters, data)
+   except:
+     print(err_msg) 
 
   else:
     print(err_msg)
