@@ -114,11 +114,11 @@ def parse_cmd(cmd, data):
 
   elif first_word == "classroom" or first_word == "c":
     if query_length == 2:
-      print("C[lassroom]: <number>")
-      # find_by_classroom(cmd_words[1], data)
+      # C[lassroom]: <number>
+      find_by_classroom(cmd_words[1], data)
     elif query_length == 3 and (third_word == "teacher" or third_word == "t"):
-      print("C[lassroom]: <number> T[eacher]")
-      # find_by_classroom_teacher(cmd_words[1], data)
+      # C[lassroom]: <number> T[eacher]
+      find_by_classroom_teacher(cmd_words[1], data)
 
   elif (first_word == "average" or first_word == "a") and query_length == 2:
       # A[verage]: <number>
