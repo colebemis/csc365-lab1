@@ -172,3 +172,22 @@ Q
 //   - Q[uit]
 
 J: NONSENSE
+
+// TC-18
+// Tests R3, NR1
+// short form command, existing classroom
+// expected output:
+//   RACANELLO, NOEL
+//   CORONADO, DIMPLE
+//   BOYTER, WAN
+//   KEMERER, ROSETTA
+//   DEMARTINI, DEWAYNE
+
+C: 102
+
+// TC-19
+// Tests R3, NR2
+// long form commands, existing classroom
+// expected output: ALPERT, JONATHAN
+
+CLASSROOM: 112 TEACHER

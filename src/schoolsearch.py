@@ -202,6 +202,22 @@ def find_by_grade_gpa_avg(grade, data):
 
   print(sum_gpa/len(students))
 
+def find_by_classroom(grade, data):
+  if not grade in data["students_by_classroom"]:
+    return
+
+  students = data["students_by_classroom"][grade]
+  for student in students:
+    print(", ".join([student.lastname, student.firstname]))
+
+def find_by_classroom_teacher(grade, data):
+  if not grade in data["teachers_by_classroom"]:
+    return
+
+  teachers = data["teachers_by_classroom"]["grade"]
+  for teacher in teachers:
+    print(", ".join([teacher.lastname, teacher.firstname]))
+
 def summarize_by_grade(data):
   for i in range(7):
     if str(i) in data["students_by_grade"]:
