@@ -3,7 +3,7 @@ Python3 "database" for student information.
 
 ## Getting Started
 Simply open your favorite terminal and run the following commands: 
-```
+```shell
 $ cd src
 $ python3 schoolsearch.py
 ```
@@ -12,9 +12,12 @@ $ python3 schoolsearch.py
 * `S[tudent]: <lastname> [B[us]]`
 * `T[eacher]: <lastname>`
 * `B[us]: <number>`
-* `G[rade]: <number> [H[igh]|L[ow]]`
+* `G[rade]: <number> [H[igh]|L[ow]|T[eacher]]`
+* `C[lassroom]: <number> [T[eacher]]`
 * `A[verage]: <number>`
 * `I[nfo]`
+* `E[nrollment]`
+* `R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]`
 * `Q[uit]`
 
 ## Contributors

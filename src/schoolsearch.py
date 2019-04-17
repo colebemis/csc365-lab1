@@ -1,3 +1,5 @@
+# Kellie Banzon, Cole Bemis, Tanner Larson
+
 from itertools import groupby
 import os
 
