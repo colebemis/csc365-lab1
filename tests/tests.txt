@@ -204,3 +204,11 @@ C: 102
 // expected output: CHIONCHIO, PERLA
 
 CLASSROOM: 112 TEACHER
+
+// TC-20
+// Tests R3, NR5
+// long form commands, single filter
+// expected output:
+//   
+
+RAW: GRADE=1

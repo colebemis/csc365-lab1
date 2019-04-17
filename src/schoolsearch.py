@@ -5,7 +5,7 @@ import os
 
 class Student:
   def __init__(self, lastname, firstname, grade, classroom, bus, gpa):
-    self.id = hash((lastname, firstname, grade, classroom, bus, gpa))
+    self.id = abs(hash((lastname, firstname, grade, classroom, bus, gpa)))
     self.lastname = lastname.strip()
     self.firstname = firstname.strip()
     self.grade = grade.strip()
@@ -136,18 +136,18 @@ def parse_cmd(cmd, data):
     # enrollment(data)
 
   elif (first_word == "raw" or first_word == "r") and 1 <= query_length <= 4 :
-   try:
-     filters = dict(map(lambda x: map(lambda s: s.lower(), x.split("=")), cmd_words[1:]))
-
-     for key in filters.keys():
-       if key.lower() not in ["grade", "bus", "teacher"]:
-         raise Exception()
-     
-     print("R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]")
-     print(filters)
-     raw(filters, data)
-   except:
-     print(err_msg) 
+    try:
+      filters = dict(map(lambda x: map(lambda s: s.lower(), x.split("=")), cmd_words[1:]))
+      for key in filters.keys():
+        if key.lower() not in ["grade", "bus", "teacher"]:
+          raise Exception()
+  
+      # TODO: delete debug messages
+      # print("R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]")
+      # print(filters)
+      raw(filters, data)
+    except:
+      print(err_msg) 
 
   else:
     print(err_msg)
@@ -262,25 +262,43 @@ def summarize_by_grade(data):
       print("%d: 0" % (i))
       
 def raw(filters, data):
-  students = None
+  students = []
   if len(filters) == 1:
     keys = list(filters.keys())
-    if keys[0] == "grade":
-      list_name = "students_by_grade"
-    elif keys[0] == "bus":
-      list_name = "students_by_bus"
+    
+    if keys[0] in ("grade", "bus"):
+      list_name = "students_by_" + str(keys[0])
+      try:
+        students = data[list_name][filters[keys[0]]]
+      except KeyError:
+        return
+    
     elif keys[0] == "teacher":
-      # TODO: students_by_teacher
-      print("students filtered by teacher not yet possible")
-      return
+      try:
+        teachers = data["teachers_by_lastname"][filters[keys[0]]]
+      except KeyError:
+        return
+      classrooms = []
+      for teacher in teachers:
+        classrooms.append(teacher.classroom)
+      for classroom in classrooms:
+        try:
+          students.extend(data["students_by_classroom"][classroom])
+        except KeyError:
+          continue
+    
     else:
       raise KeyError('Invalid filter')
-    try:
-      students = data[list_name][filters[keys[0]]]
-    except KeyError:
-      return
+
   for student in students:
-    print("{}; {}; {}; {}; {}".format(student.id, student.gpa, student.grade, "TEACHER PENDING", student.bus))
+    # TODO: this lookup is expensive
+    teachers = data["teachers_by_classroom"][student.classroom]
+    teacher_names = ""
+    for i in range(len(teachers)):
+      if i > 0:
+        teacher_names += "& "
+      teacher_names += "{}, {}".format(teachers[i].lastname, teachers[i].firstname) 
+    print("{}; {}; {}; {}; {}".format(student.id, student.gpa, student.grade, teacher_names, student.bus))
 
 def main():
   students = parse_students("../list.txt")
