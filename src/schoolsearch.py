@@ -137,7 +137,7 @@ def parse_cmd(cmd, data):
 
   elif (first_word == "raw" or first_word == "r") and 1 <= query_length <= 4 :
    try:
-     filters = dict(map(lambda x: x.split("="), cmd_words[1:]))
+     filters = dict(map(lambda x: map(lambda s: s.lower(), x.split("=")), cmd_words[1:]))
 
      for key in filters.keys():
        if key.lower() not in ["grade", "bus", "teacher"]:
