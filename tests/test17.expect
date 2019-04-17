@@ -2,8 +2,11 @@ Enter query: Unrecognized command. Possible commands:
 - S[tudent]: <lastname> [B[us]]
 - T[eacher]: <lastname>
 - B[us]: <number>
-- G[rade]: <number> [H[igh]|L[ow]]
+- G[rade]: <number> [H[igh]|L[ow]|T[eacher]]
+- C[lassroom]: <number> [T[eacher]]
 - A[verage]: <number>
 - I[nfo]
+- E[nrollment]
+- R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]
 - Q[uit]
 Enter query: 

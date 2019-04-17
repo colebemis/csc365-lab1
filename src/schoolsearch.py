@@ -246,7 +246,7 @@ def find_by_classroom_teacher(grade, data):
   if not grade in data["teachers_by_classroom"]:
     return
 
-  teachers = data["teachers_by_classroom"]["grade"]
+  teachers = data["teachers_by_classroom"][grade]
   for teacher in teachers:
     print(", ".join([teacher.lastname, teacher.firstname]))
 

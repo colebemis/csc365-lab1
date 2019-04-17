@@ -30,9 +30,12 @@ S: NEMO
 //   - S[tudent]: <lastname> [B[us]]
 //   - T[eacher]: <lastname>
 //   - B[us]: <number>
-//   - G[rade]: <number> [H[igh]|L[ow]]
+//   - G[rade]: <number> [H[igh]|L[ow]|T[eacher]]
+//   - C[lassroom]: <number> [T[eacher]]
 //   - A[verage]: <number>
 //   - I[nfo]
+//   - E[nrollment]
+//   - R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]
 //   - Q[uit]
 
 STUDENT:
@@ -95,9 +98,12 @@ B: 52
 //   - S[tudent]: <lastname> [B[us]]
 //   - T[eacher]: <lastname>
 //   - B[us]: <number>
-//   - G[rade]: <number> [H[igh]|L[ow]]
+//   - G[rade]: <number> [H[igh]|L[ow]|T[eacher]]
+//   - C[lassroom]: <number> [T[eacher]]
 //   - A[verage]: <number>
 //   - I[nfo]
+//   - E[nrollment]
+//   - R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]
 //   - Q[uit]
 
 BUS:
@@ -131,9 +137,12 @@ A: 1
 //   - S[tudent]: <lastname> [B[us]]
 //   - T[eacher]: <lastname>
 //   - B[us]: <number>
-//   - G[rade]: <number> [H[igh]|L[ow]]
+//   - G[rade]: <number> [H[igh]|L[ow]|T[eacher]]
+//   - C[lassroom]: <number> [T[eacher]]
 //   - A[verage]: <number>
 //   - I[nfo]
+//   - E[nrollment]
+//   - R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]
 //   - Q[uit]
 
 AVERAGE:
@@ -166,9 +175,12 @@ Q
 //   - S[tudent]: <lastname> [B[us]]
 //   - T[eacher]: <lastname>
 //   - B[us]: <number>
-//   - G[rade]: <number> [H[igh]|L[ow]]
+//   - G[rade]: <number> [H[igh]|L[ow]|T[eacher]]
+//   - C[lassroom]: <number> [T[eacher]]
 //   - A[verage]: <number>
 //   - I[nfo]
+//   - E[nrollment]
+//   - R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]
 //   - Q[uit]
 
 J: NONSENSE
@@ -188,6 +200,6 @@ C: 102
 // TC-19
 // Tests R3, NR2
 // long form commands, existing classroom
-// expected output: ALPERT, JONATHAN
+// expected output: CHIONCHIO, PERLA
 
 CLASSROOM: 112 TEACHER
