@@ -3,6 +3,7 @@ import os
 
 class Student:
   def __init__(self, lastname, firstname, grade, classroom, bus, gpa):
+    self.id = hash((lastname, firstname, grade, classroom, bus, gpa))
     self.lastname = lastname.strip()
     self.firstname = firstname.strip()
     self.grade = grade.strip()
@@ -277,7 +278,7 @@ def raw(filters, data):
     except KeyError:
       return
   for student in students:
-    print("{}; {}; {}; {}; {}".format("ID PENDING", student.gpa, student.grade, "TEACHER PENDING", student.bus))
+    print("{}; {}; {}; {}; {}".format(student.id, student.gpa, student.grade, "TEACHER PENDING", student.bus))
 
 def main():
   students = parse_students("../list.txt")
