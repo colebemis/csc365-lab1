@@ -142,7 +142,7 @@ def parse_cmd(cmd, data):
      
      print("R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]")
      print(filters)
-     # raw(filters, data)
+     raw(filters, data)
    except:
      print(err_msg) 
 
@@ -234,19 +234,19 @@ def find_by_grade_gpa_avg(grade, data):
 
   print(sum_gpa/len(students))
 
-def find_by_classroom(grade, data):
-  if not grade in data["students_by_classroom"]:
+def find_by_classroom(classroom, data):
+  if not classroom in data["students_by_classroom"]:
     return
 
-  students = data["students_by_classroom"][grade]
+  students = data["students_by_classroom"][classroom]
   for student in students:
     print(", ".join([student.lastname, student.firstname]))
 
-def find_by_classroom_teacher(grade, data):
-  if not grade in data["teachers_by_classroom"]:
+def find_by_classroom_teacher(classroom, data):
+  if not classroom in data["teachers_by_classroom"]:
     return
 
-  teachers = data["teachers_by_classroom"][grade]
+  teachers = data["teachers_by_classroom"][classroom]
   for teacher in teachers:
     print(", ".join([teacher.lastname, teacher.firstname]))
 
@@ -257,6 +257,27 @@ def summarize_by_grade(data):
       print("%d: %d" % (i, len(students)))
     else:
       print("%d: 0" % (i))
+      
+def raw(filters, data):
+  students = None
+  if len(filters) == 1:
+    keys = list(filters.keys())
+    if keys[0] == "grade":
+      list_name = "students_by_grade"
+    elif keys[0] == "bus":
+      list_name = "students_by_bus"
+    elif keys[0] == "teacher":
+      # TODO: students_by_teacher
+      print("students filtered by teacher not yet possible")
+      return
+    else:
+      raise KeyError('Invalid filter')
+    try:
+      students = data[list_name][filters[keys[0]]]
+    except KeyError:
+      return
+  for student in students:
+    print("{}; {}; {}; {}; {}".format("ID PENDING", student.gpa, student.grade, "TEACHER PENDING", student.bus))
 
 def main():
   students = parse_students("../list.txt")
