@@ -300,7 +300,7 @@ def raw(filters, data):
     
     elif keys[0] == "teacher":
       try:
-        teachers = data["teachers_by_lastname"][filters[keys[0]]]
+        teachers = data["teachers_by_lastname"][filters[keys[0]].upper()]
       except KeyError:
         return
       classrooms = []
@@ -323,7 +323,7 @@ def raw(filters, data):
       if i > 0:
         teacher_names += "& "
       teacher_names += "{}, {}".format(teachers[i].lastname, teachers[i].firstname) 
-    print("{}; {}; {}; {}; {}".format(student.id, student.gpa, student.grade, teacher_names, student.bus))
+    print("{}, {}, {}, {}, {}".format(student.id, student.gpa, student.grade, teacher_names, student.bus))
 
 def main():
   students = parse_students("../list.txt")
