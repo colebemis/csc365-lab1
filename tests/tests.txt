@@ -2,6 +2,20 @@
 // Lab 1-2 test suite
 // Kellie Banzon, Cole Bemis, Tanner Larson
 
+Error message:
+  Unrecognized command. Possible commands:
+  - A[verage]: <number>
+  - B[us]: <number>
+  - C[lassroom]: <number> [T[eacher]]
+  - E[nrollment]
+  - G[rade]: <number> [H[igh]|L[ow]|T[eacher]]
+  - H[elp]
+  - I[nfo]
+  - R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]
+  - S[tudent]: <lastname> [B[us]]
+  - T[eacher]: <lastname>
+  - Q[uit]
+
 // TC-1
 // Tests R3, R4
 // short form command, existing student
@@ -26,18 +40,7 @@ S: NEMO
 // TC-4
 // Tests R3, R4
 // long form commands, missing student
-// expected output:
-//   Unrecognized command. Possible commands:
-//   - S[tudent]: <lastname> [B[us]]
-//   - T[eacher]: <lastname>
-//   - B[us]: <number>
-//   - G[rade]: <number> [H[igh]|L[ow]|T[eacher]]
-//   - C[lassroom]: <number> [T[eacher]]
-//   - A[verage]: <number>
-//   - I[nfo]
-//   - E[nrollment]
-//   - R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]
-//   - Q[uit]
+// expected output: <error message (see above)>
 
 STUDENT:
 
@@ -94,18 +97,7 @@ B: 52
 // TC-10
 // Tests R3, R8, E1
 // long form command, missing bus
-// expected output:
-//   Unrecognized command. Possible commands:
-//   - S[tudent]: <lastname> [B[us]]
-//   - T[eacher]: <lastname>
-//   - B[us]: <number>
-//   - G[rade]: <number> [H[igh]|L[ow]|T[eacher]]
-//   - C[lassroom]: <number> [T[eacher]]
-//   - A[verage]: <number>
-//   - I[nfo]
-//   - E[nrollment]
-//   - R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]
-//   - Q[uit]
+// expected output: <error message (see above)>
 
 BUS:
 
@@ -133,18 +125,7 @@ A: 1
 // TC-14
 // Tests R3, R10, E1
 // long form command, missing grade
-// expected output:
-//   Unrecognized command. Possible commands:
-//   - S[tudent]: <lastname> [B[us]]
-//   - T[eacher]: <lastname>
-//   - B[us]: <number>
-//   - G[rade]: <number> [H[igh]|L[ow]|T[eacher]]
-//   - C[lassroom]: <number> [T[eacher]]
-//   - A[verage]: <number>
-//   - I[nfo]
-//   - E[nrollment]
-//   - R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]
-//   - Q[uit]
+// expected output: <error message (see above)>
 
 AVERAGE:
 
@@ -171,18 +152,7 @@ Q
 
 // TC-17
 // Tests E1
-// expected output:
-//   Unrecognized command. Possible commands:
-//   - S[tudent]: <lastname> [B[us]]
-//   - T[eacher]: <lastname>
-//   - B[us]: <number>
-//   - G[rade]: <number> [H[igh]|L[ow]|T[eacher]]
-//   - C[lassroom]: <number> [T[eacher]]
-//   - A[verage]: <number>
-//   - I[nfo]
-//   - E[nrollment]
-//   - R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]
-//   - Q[uit]
+// expected output: <error message (see above)>
 
 J: NONSENSE
 
@@ -212,3 +182,31 @@ CLASSROOM: 112 TEACHER
 //   
 
 RAW: GRADE=1
+
+// TC-21
+// Tests R3, NR3
+// long form command
+// expected output: 
+//   FAFARD, ROCIO
+//   ALPERT, JONATHAN
+
+GRADE: 3 TEACHER
+
+// TC-22
+// Tests R3, NR4
+// long form command
+// expected output:
+//   101: 1
+//   102: 5
+//   103: 2
+//   104: 2
+//   105: 6
+//   106: 2
+//   107: 7
+//   108: 11
+//   109: 5
+//   110: 2
+//   111: 9
+//   112: 8
+
+ENROLLMENT

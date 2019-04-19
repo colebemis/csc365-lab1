@@ -323,7 +323,7 @@ def raw(filters, data, students):
       if i > 0:
         teacher_names += "& "
       teacher_names += "{}, {}".format(teachers[i].lastname, teachers[i].firstname)
-    print(", ".join([student.id, student.gpa, student.grade, teacher_names, student.bus]))
+    print("; ".join([student.id, student.gpa, student.grade, teacher_names, student.bus]))
 
 def print_err_msg():
   print("Unrecognized command. ", end="")
