@@ -9,16 +9,17 @@ $ python3 schoolsearch.py
 ```
 
 ## Supported Queries
-* `S[TUDENT]: <lastname> [B[US]]`
-* `T[EACHER]: <lastname>`
-* `B[US]: <number>`
-* `G[RADE]: <number> [H[IGH]|L[OW]|T[EACHER]]`
-* `C[LASSROOM]: <number> [T[EACHER]]`
-* `A[VERAGE]: <number>`
-* `I[NFO]`
-* `E[NROLLMENT]`
-* `R[AW]: [GRADE=<number>] [BUS=<number>] [TEACHER=<lastname>]`
-* `Q[UIT]`
+* `A[verage]: <number>`
+* `B[us]: <number>`
+* `C[lassroom]: <number> [T[eacher]]`
+* `E[nrollment]`
+* `G[rade]: <number> [H[igh]|L[ow]|T[eacher]]`
+* `H[elp]`
+* `I[nfo]`
+* `R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]`
+* `S[tudent]: <lastname> [B[us]]`
+* `T[eacher]: <lastname>`
+* `Q[uit]`
 
 ## Contributors
 [Kellie Banzon](https://github.com/kelliebanzon), 
