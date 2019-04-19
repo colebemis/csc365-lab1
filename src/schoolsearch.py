@@ -161,9 +161,15 @@ def find_by_lastname(lastname, data):
   students = data["students_by_lastname"][lastname]
 
   for student in students:
-    teacher = data["teachers_by_classroom"][student.classroom][0]
+    teachers = data["teachers_by_classroom"][student.classroom]
+    teacher_names = ""
+    for i in range(len(teachers)):
+      if i > 0:
+        teacher_names += " & "
+      teacher_names += "{}, {}".format(teachers[i].lastname, teachers[i].firstname)
+
     print(", ".join([student.lastname, student.firstname, str(student.grade),
-                     str(student.classroom), teacher.lastname, teacher.firstname]))
+                     str(student.classroom), teacher_names]))
 
 def find_by_lastname_bus(lastname, data):
   if not lastname in data["students_by_lastname"]:
@@ -321,7 +327,7 @@ def raw(filters, data, students):
     teacher_names = ""
     for i in range(len(teachers)):
       if i > 0:
-        teacher_names += "& "
+        teacher_names += " & "
       teacher_names += "{}, {}".format(teachers[i].lastname, teachers[i].firstname)
     print("; ".join([student.id, student.gpa, student.grade, teacher_names, student.bus]))
 

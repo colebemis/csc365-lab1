@@ -139,7 +139,7 @@ AVERAGE:
 //   3: 9
 //   4: 15
 //   5: 0
-//   6: 21
+//   6: 22
 
 INFO
 
@@ -208,5 +208,32 @@ GRADE: 3 TEACHER
 //   110: 2
 //   111: 9
 //   112: 8
+//   365: 1
 
 ENROLLMENT
+
+// TC-23
+// Tests R3, NR5
+// long form command, two filters
+// expected output: 701dd7c11905a4c0e1a9; 3.12; 4; HANTZ, JED; 51
+
+RAW: teacher=HANTZ bus=51
+
+// TC-24
+// Tests R3, NR5
+// short form command, three filters
+// expected output:
+//   17472e443362a4534c33; 3.1; 6; KERBS, BENITO; 55
+//   d45c6f546f9cb18f9828; 2.93; 6; KERBS, BENITO; 55
+
+R: grade=6 bus=55 teacher=kerbs
+
+// TC-25
+// Tests R3, NR2
+// short form commands, multiple teachers
+// expected output:
+//   BANZON, KELLIE
+//   BEMIS, COLE
+
+C: 365 T
+

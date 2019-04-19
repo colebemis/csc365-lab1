@@ -3,27 +3,30 @@
 // Kellie Banzon, Cole Bemis, Tanner Larson
 
 // TC-1
-// Tests R3, R4z
+// Tests R3, R4
 LINHART, LELA, 3, 107, FAFARD, ROCIO
 
 // TC-2
 // Tests R3, R4
 SWEDLUND, SHARRI, 3, 107, FAFARD, ROCIO
 
-
 // TC-3
 // Tests R3, R4
-
+<blank>
 
 // TC-4
 // Tests R3, R4
 Unrecognized command. Possible commands:
+- A[verage]: <number>
+- B[us]: <number>
+- C[lassroom]: <number> [T[eacher]]
+- E[nrollment]
+- G[rade]: <number> [H[igh]|L[ow]|T[eacher]]
+- H[elp]
+- I[nfo]
+- R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]
 - S[tudent]: <lastname> [B[us]]
 - T[eacher]: <lastname>
-- B[us]: <number>
-- G[rade]: <number> [H[igh]|L[ow]]
-- A[verage]: <number>
-- I[nfo]
 - Q[uit]
 
 // TC-5
@@ -45,7 +48,7 @@ GARTH, JOHN
 
 // TC-8
 // Tests R3, R7
-
+<blank>
 
 // TC-9
 // Tests R3, R8
@@ -61,12 +64,16 @@ KEMERER, ROSETTA, 6, 102
 // TC-10
 // Tests R3, R8, E1
 Unrecognized command. Possible commands:
+- A[verage]: <number>
+- B[us]: <number>
+- C[lassroom]: <number> [T[eacher]]
+- E[nrollment]
+- G[rade]: <number> [H[igh]|L[ow]|T[eacher]]
+- H[elp]
+- I[nfo]
+- R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]
 - S[tudent]: <lastname> [B[us]]
 - T[eacher]: <lastname>
-- B[us]: <number>
-- G[rade]: <number> [H[igh]|L[ow]]
-- A[verage]: <number>
-- I[nfo]
 - Q[uit]
 
 // TC-11
@@ -84,12 +91,16 @@ SAELEE, DANILO, 2.85, FALKER, ADOLPH, 54
 // TC-14
 // Tests R3, R10, E1
 Unrecognized command. Possible commands:
+- A[verage]: <number>
+- B[us]: <number>
+- C[lassroom]: <number> [T[eacher]]
+- E[nrollment]
+- G[rade]: <number> [H[igh]|L[ow]|T[eacher]]
+- H[elp]
+- I[nfo]
+- R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]
 - S[tudent]: <lastname> [B[us]]
 - T[eacher]: <lastname>
-- B[us]: <number>
-- G[rade]: <number> [H[igh]|L[ow]]
-- A[verage]: <number>
-- I[nfo]
 - Q[uit]
 
 // TC-15
@@ -100,19 +111,75 @@ Unrecognized command. Possible commands:
 3: 9
 4: 15
 5: 0
-6: 21
+6: 22
 
 // TC-16
 // Tests R3, R12
-
+<blank>
 
 // TC-17
 // Tests E1
 Unrecognized command. Possible commands:
+- A[verage]: <number>
+- B[us]: <number>
+- C[lassroom]: <number> [T[eacher]]
+- E[nrollment]
+- G[rade]: <number> [H[igh]|L[ow]|T[eacher]]
+- H[elp]
+- I[nfo]
+- R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]
 - S[tudent]: <lastname> [B[us]]
 - T[eacher]: <lastname>
-- B[us]: <number>
-- G[rade]: <number> [H[igh]|L[ow]]
-- A[verage]: <number>
-- I[nfo]
 - Q[uit]
+
+// TC-18
+// Tests R3, NR1
+RACANELLO, NOEL
+CORONADO, DIMPLE
+BOYTER, WAN
+KEMERER, ROSETTA
+DEMARTINI, DEWAYNE
+
+// TC-19
+// Tests R3, NR2
+CHIONCHIO, PERLA
+
+// TC-20
+// Tests R3, NR5
+277b9702f2be079a4dca; 2.85; 1; FALKER, ADOLPH; 54
+21e83e872a5737fa4ba2; 3.14; 1; FALKER, ADOLPH; 0
+
+// TC-21
+// Tests R3, NR3
+FAFARD, ROCIO
+ALPERT, JONATHAN
+
+// TC-22
+// Tests R3, NR4
+101: 1
+102: 5
+103: 2
+104: 2
+105: 6
+106: 2
+107: 7
+108: 11
+109: 5
+110: 2
+111: 9
+112: 8
+365: 1
+
+// TC-23
+// Tests R3, NR5
+701dd7c11905a4c0e1a9; 3.12; 4; HANTZ, JED; 51
+
+// TC-24
+// Tests R3, NR5
+17472e443362a4534c33; 3.1; 6; KERBS, BENITO; 55
+d45c6f546f9cb18f9828; 2.93; 6; KERBS, BENITO; 55
+
+// TC-25
+// Tests R3, NR2
+BANZON, KELLIE
+BEMIS, COLE
