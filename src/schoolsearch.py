@@ -1,11 +1,11 @@
 # Kellie Banzon, Cole Bemis, Tanner Larson
 
 from itertools import groupby
-import os
+from hashlib import blake2s
 
 class Student:
   def __init__(self, lastname, firstname, grade, classroom, bus, gpa):
-    self.id = abs(hash((lastname, firstname, grade, classroom, bus, gpa)))
+    self.id = generateId(lastname, firstname, grade, classroom, bus, gpa)
     self.lastname = lastname.strip()
     self.firstname = firstname.strip()
     self.grade = grade.strip()
@@ -27,6 +27,14 @@ class Teacher:
   def __repr__(self):
     return "(" + \
       ", ".join([self.lastname, self.firstname, str(self.classroom)]) + ")"
+
+# create unique id consistent between runs
+def generateId(lastname, firstname, grade, classroom, bus, gpa):
+    items = [lastname.encode('utf-8'), firstname.encode('utf-8'), grade.encode('utf-8'),
+             classroom.encode('utf-8'), bus.encode('utf-8'), gpa.encode('utf-8')]
+    h = blake2s(digest_size=10)
+    [h.update(item) for item in items]
+    return h.hexdigest()
 
 # groups by given key
 def group(lst, keyfunc):
