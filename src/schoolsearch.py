@@ -245,8 +245,9 @@ def find_by_grade_teachers(grade, data):
   studentsInGradeByClassroom = group(studentsInGrade, lambda s: s.classroom)
 
   for classroom in studentsInGradeByClassroom:
-    teacher = data["teachers_by_classroom"][classroom]
-    print(", ".join([teacher[0].lastname, teacher[0].firstname]))
+    teachers = data["teachers_by_classroom"][classroom]
+    for teacher in teachers:
+      print(", ".join([teacher.lastname, teacher.firstname]))
 
 def find_by_classroom(classroom, data):
   if not classroom in data["students_by_classroom"]:
