@@ -108,8 +108,8 @@ def parse_cmd(cmd, data):
         # G[rade]: <number> L[ow]
         find_by_grade_gpa_low(cmd_words[1], data)
       elif third_word == "teacher" or third_word == "t":
-        print("G[rade]: <number> T[eacher]")   
-        # find_by_grade_teacher(cmd_words[1], data)
+        # G[rade]: <number> T[eacher]
+        find_by_grade_teachers(cmd_words[1], data)
       else:
         print(err_msg)
     else:
@@ -132,8 +132,8 @@ def parse_cmd(cmd, data):
     summarize_by_grade(data)
 
   elif (first_word == "enrollment" or first_word == "e") and query_length == 1:
-    print("E[nrollment]")
-    # enrollment(data)
+    # E[nrollment]
+    enrollment(data)
 
   elif (first_word == "raw" or first_word == "r") and 1 <= query_length <= 4 :
     try:
@@ -196,7 +196,7 @@ def find_by_grade(grade, data):
 
   students = data["students_by_grade"][grade]
   for student in students:
-    print(", ".join([student.lastname, student.firstname]))
+    print(", ".join([student.lastname, student.firstname, student.classroom]))
 
 def find_by_grade_gpa_high(grade, data):
   if not grade in data["students_by_grade"]:
@@ -237,6 +237,17 @@ def find_by_grade_gpa_avg(grade, data):
 
   print(sum_gpa/len(students))
 
+def find_by_grade_teachers(grade, data):
+  if not grade in data["students_by_grade"]:
+    return
+
+  studentsInGrade = data["students_by_grade"][grade]
+  studentsInGradeByClassroom = group(studentsInGrade, lambda s: s.classroom)
+
+  for classroom in studentsInGradeByClassroom:
+    teacher = data["teachers_by_classroom"][classroom]
+    print(", ".join([teacher[0].lastname, teacher[0].firstname]))
+
 def find_by_classroom(classroom, data):
   if not classroom in data["students_by_classroom"]:
     return
@@ -260,7 +271,12 @@ def summarize_by_grade(data):
       print("%d: %d" % (i, len(students)))
     else:
       print("%d: 0" % (i))
-      
+
+def enrollment(data):
+  students = data["students_by_classroom"]
+  for classroom in students:
+    print("%s: %d" % (classroom, len(students[classroom])))
+
 def raw(filters, data):
   students = []
   if len(filters) == 1:
