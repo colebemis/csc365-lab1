@@ -196,7 +196,7 @@ def find_by_grade(grade, data):
 
   students = data["students_by_grade"][grade]
   for student in students:
-    print(", ".join([student.lastname, student.firstname, student.classroom]))
+    print(", ".join([student.lastname, student.firstname]))
 
 def find_by_grade_gpa_high(grade, data):
   if not grade in data["students_by_grade"]:
