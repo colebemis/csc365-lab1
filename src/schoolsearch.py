@@ -68,20 +68,13 @@ def parse_teachers(filename):
 # parses the command and calls the appropriate function
 # note: quitting out of the program is handled in the main loop
 def parse_cmd(cmd, data, students):
-  err_msg = "Unrecognized command. Possible commands:\n" \
-            "- S[tudent]: <lastname> [B[us]]\n" \
-            "- T[eacher]: <lastname>\n" \
-            "- B[us]: <number>\n" \
-            "- G[rade]: <number> [H[igh]|L[ow]|T[eacher]]\n" \
-            "- C[lassroom]: <number> [T[eacher]]\n" \
-            "- A[verage]: <number>\n" \
-            "- I[nfo]\n" \
-            "- E[nrollment]\n" \
-            "- R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]\n" \
-            "- Q[uit]"
   cmd_words = cmd.split()
 
   query_length = len(cmd_words)
+  if query_length < 1:
+    print_err_msg()
+    return
+  
   first_word = cmd_words[0].lower().rstrip(":")
   if query_length > 2:
     third_word = cmd_words[2].lower()
@@ -94,7 +87,7 @@ def parse_cmd(cmd, data, students):
       # S[tudent]: <lastname> B[us]
       find_by_lastname_bus(cmd_words[1], data)
     else:
-      print(err_msg)
+      print_err_msg()
 
   elif (first_word == "teacher" or first_word == "t") and query_length == 2:
     # T[eacher]: <lastname>
@@ -119,9 +112,9 @@ def parse_cmd(cmd, data, students):
         # G[rade]: <number> T[eacher]
         find_by_grade_teachers(cmd_words[1], data)
       else:
-        print(err_msg)
+        print_err_msg()
     else:
-      print(err_msg)
+      print_err_msg()
 
   elif first_word == "classroom" or first_word == "c":
     if query_length == 2:
@@ -156,10 +149,13 @@ def parse_cmd(cmd, data, students):
       # raw(filters, data)
       raw2(filters, data, students)
     except:
-      print(err_msg) 
+      print_err_msg() 
+  
+  elif (first_word == "help" or first_word == "h"):
+    print_help_msg()
 
   else:
-    print(err_msg)
+    print_err_msg()
 
 
 def find_by_lastname(lastname, data):
@@ -370,7 +366,24 @@ def raw2(filters, data, students):
       teacher_names += "{}, {}".format(teachers[i].lastname, teachers[i].firstname)
     print(", ".join([student.id, student.gpa, student.grade, teacher_names, student.bus]))
 
+def print_err_msg():
+  print("Unrecognized command. ", end="")
+  print_help_msg()
 
+def print_help_msg():
+  msg = "Possible commands:\n" \
+        "- A[verage]: <number>\n" \
+        "- B[us]: <number>\n" \
+        "- C[lassroom]: <number> [T[eacher]]\n" \
+        "- E[nrollment]\n" \
+        "- G[rade]: <number> [H[igh]|L[ow]|T[eacher]]\n" \
+        "- H[elp]\n" \
+        "- I[nfo]\n" \
+        "- R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]\n" \
+        "- S[tudent]: <lastname> [B[us]]\n" \
+        "- T[eacher]: <lastname>\n" \
+        "- Q[uit]"
+  print(msg)
 
 def main():
   students = parse_students("../list.txt")
