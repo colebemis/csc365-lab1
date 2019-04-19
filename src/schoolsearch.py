@@ -148,6 +148,7 @@ def parse_cmd(cmd, data, students):
       print_err_msg() 
   
   elif (first_word == "help" or first_word == "h"):
+    # H[elp]
     print_help_msg()
 
   else:
