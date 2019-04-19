@@ -67,7 +67,7 @@ def parse_teachers(filename):
 
 # parses the command and calls the appropriate function
 # note: quitting out of the program is handled in the main loop
-def parse_cmd(cmd, data):
+def parse_cmd(cmd, data, students):
   err_msg = "Unrecognized command. Possible commands:\n" \
             "- S[tudent]: <lastname> [B[us]]\n" \
             "- T[eacher]: <lastname>\n" \
@@ -153,7 +153,8 @@ def parse_cmd(cmd, data):
       # TODO: delete debug messages
       # print("R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]")
       # print(filters)
-      raw(filters, data)
+      # raw(filters, data)
+      raw2(filters, data, students)
     except:
       print(err_msg) 
 
@@ -286,32 +287,76 @@ def enrollment(data):
   for classroom in students:
     print("%s: %d" % (classroom, len(students[classroom])))
 
-def raw(filters, data):
-  students = []
-  if len(filters) == 1:
-    keys = list(filters.keys())
-    
-    if keys[0] in ("grade", "bus"):
-      list_name = "students_by_" + str(keys[0])
+# def raw(filters, data):
+#   students = []
+#   if len(filters) == 1:
+#     keys = list(filters.keys())
+#
+#     if keys[0] in ("grade", "bus"):
+#       list_name = "students_by_" + str(keys[0])
+#       try:
+#         students = data[list_name][filters[keys[0]]]
+#       except KeyError:
+#         return
+#
+#     elif keys[0] == "teacher":
+#       try:
+#         teachers = data["teachers_by_lastname"][filters[keys[0]].upper()]
+#       except KeyError:
+#         return
+#       classrooms = []
+#       for teacher in teachers:
+#         classrooms.append(teacher.classroom)
+#       for classroom in classrooms:
+#         try:
+#           students.extend(data["students_by_classroom"][classroom])
+#         except KeyError:
+#           continue
+#
+#     else:
+#       raise KeyError('Invalid filter')
+#
+#   for student in students:
+#     # TODO: this lookup is expensive
+#     teachers = data["teachers_by_classroom"][student.classroom]
+#     teacher_names = ""
+#     for i in range(len(teachers)):
+#       if i > 0:
+#         teacher_names += "& "
+#       teacher_names += "{}, {}".format(teachers[i].lastname, teachers[i].firstname)
+#     print("{}, {}, {}, {}, {}".format(student.id, student.gpa, student.grade, teacher_names, student.bus))
+
+def raw2(filters, data, students):
+  for key in filters:
+    if key == "grade":
+      students_by_grade = group(students, lambda s: s.grade)
       try:
-        students = data[list_name][filters[keys[0]]]
+        students = students_by_grade[filters[key]]
       except KeyError:
         return
-    
-    elif keys[0] == "teacher":
+
+    elif key == "bus":
+      students_by_bus = group(students, lambda s: s.bus)
       try:
-        teachers = data["teachers_by_lastname"][filters[keys[0]].upper()]
+        students = students_by_bus[filters[key]]
       except KeyError:
         return
-      classrooms = []
+
+    elif key == "teacher":
+      teachers_by_lastname = data["teachers_by_lastname"]
+      try:
+        teachers = teachers_by_lastname[filters[key].upper()]
+      except KeyError:
+        return
+      temp = []
       for teacher in teachers:
-        classrooms.append(teacher.classroom)
-      for classroom in classrooms:
+        students_by_classroom = group(students, lambda s: s.classroom)
         try:
-          students.extend(data["students_by_classroom"][classroom])
+            temp.extend(students_by_classroom[teacher.classroom])
         except KeyError:
-          continue
-    
+            continue
+      students = temp
+
     else:
       raise KeyError('Invalid filter')
 
@@ -322,8 +367,10 @@ def raw(filters, data):
     for i in range(len(teachers)):
       if i > 0:
         teacher_names += "& "
-      teacher_names += "{}, {}".format(teachers[i].lastname, teachers[i].firstname) 
-    print("{}, {}, {}, {}, {}".format(student.id, student.gpa, student.grade, teacher_names, student.bus))
+      teacher_names += "{}, {}".format(teachers[i].lastname, teachers[i].firstname)
+    print(", ".join([student.id, student.gpa, student.grade, teacher_names, student.bus]))
+
+
 
 def main():
   students = parse_students("../list.txt")
@@ -345,7 +392,7 @@ def main():
     if query_lower == "q" or query_lower == "quit":
       break
     else:
-      parse_cmd(query, data)
+      parse_cmd(query, data, students)
 
 
 if __name__ == "__main__":
