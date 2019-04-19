@@ -149,12 +149,8 @@ def parse_cmd(cmd, data, students):
       for key in filters.keys():
         if key.lower() not in ["grade", "bus", "teacher"]:
           raise Exception()
-  
-      # TODO: delete debug messages
-      # print("R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]")
-      # print(filters)
-      # raw(filters, data)
-      raw2(filters, data, students)
+      # R[aw]: [grade=<number>] [bus=<number>] [teacher=<lastname>]
+      raw(filters, data, students)
     except:
       print(err_msg) 
 
@@ -287,58 +283,21 @@ def enrollment(data):
   for classroom in students:
     print("%s: %d" % (classroom, len(students[classroom])))
 
-# def raw(filters, data):
-#   students = []
-#   if len(filters) == 1:
-#     keys = list(filters.keys())
-#
-#     if keys[0] in ("grade", "bus"):
-#       list_name = "students_by_" + str(keys[0])
-#       try:
-#         students = data[list_name][filters[keys[0]]]
-#       except KeyError:
-#         return
-#
-#     elif keys[0] == "teacher":
-#       try:
-#         teachers = data["teachers_by_lastname"][filters[keys[0]].upper()]
-#       except KeyError:
-#         return
-#       classrooms = []
-#       for teacher in teachers:
-#         classrooms.append(teacher.classroom)
-#       for classroom in classrooms:
-#         try:
-#           students.extend(data["students_by_classroom"][classroom])
-#         except KeyError:
-#           continue
-#
-#     else:
-#       raise KeyError('Invalid filter')
-#
-#   for student in students:
-#     # TODO: this lookup is expensive
-#     teachers = data["teachers_by_classroom"][student.classroom]
-#     teacher_names = ""
-#     for i in range(len(teachers)):
-#       if i > 0:
-#         teacher_names += "& "
-#       teacher_names += "{}, {}".format(teachers[i].lastname, teachers[i].firstname)
-#     print("{}, {}, {}, {}, {}".format(student.id, student.gpa, student.grade, teacher_names, student.bus))
+def raw(filters, data, students):
+  result = students
 
-def raw2(filters, data, students):
   for key in filters:
     if key == "grade":
-      students_by_grade = group(students, lambda s: s.grade)
+      students_by_grade = group(result, lambda s: s.grade)
       try:
-        students = students_by_grade[filters[key]]
+        result = students_by_grade[filters[key]]
       except KeyError:
         return
 
     elif key == "bus":
-      students_by_bus = group(students, lambda s: s.bus)
+      students_by_bus = group(result, lambda s: s.bus)
       try:
-        students = students_by_bus[filters[key]]
+        result = students_by_bus[filters[key]]
       except KeyError:
         return
 
@@ -350,18 +309,18 @@ def raw2(filters, data, students):
         return
       temp = []
       for teacher in teachers:
-        students_by_classroom = group(students, lambda s: s.classroom)
+        students_by_classroom = group(result, lambda s: s.classroom)
         try:
             temp.extend(students_by_classroom[teacher.classroom])
         except KeyError:
             continue
-      students = temp
+      result = temp
 
     else:
       raise KeyError('Invalid filter')
 
-  for student in students:
-    # TODO: this lookup is expensive
+  for student in result:
+    # NOTE: this lookup is expensive
     teachers = data["teachers_by_classroom"][student.classroom]
     teacher_names = ""
     for i in range(len(teachers)):
